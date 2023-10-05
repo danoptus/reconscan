@@ -15,36 +15,6 @@ print("""
 import os
 import subprocess
 
-# Solicite o nome do domínio ao usuário
-domain = input("Digite o nome do domínio: ")
-
-# Lista de ferramentas a serem instaladas e seus comandos de verificação de versão
-tools_to_install = [
-    {"name": "subfinder", "command": "subfinder -version"},
-    {"name": "assetfinder", "command": "assetfinder --version"},
-    {"name": "paramspider", "command": "paramspider --version"},
-    {"name": "httpx", "command": "httpx --version"},
-    {"name": "nuclei", "command": "nuclei -version"},
-]
-
-def is_tool_installed(tool_info):
-    try:
-        subprocess.run([tool_info["command"]], stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
-        return True
-    except subprocess.CalledProcessError:
-        return False
-
-def is_tool_up_to_date(tool_info):
-    try:
-        installed_version = subprocess.check_output([tool_info["command"]], stderr=subprocess.STDOUT, shell=True).decode().strip()
-        print(f"Versão instalada de {tool_info['name']}: {installed_version}")
-        # Adicione uma lógica aqui para verificar se a versão está desatualizada
-        # Você pode comparar installed_version com a versão desejada e decidir se precisa atualizar
-        # Por exemplo, você pode verificar uma fonte de versão online
-        return True  # Altere para False se a ferramenta estiver desatualizada
-    except subprocess.CalledProcessError:
-        return False
-
 def install_tool(tool_info):
     tool_name = tool_info["name"]
     if is_tool_installed(tool_info):
@@ -66,14 +36,15 @@ def install_tool(tool_info):
             print(f"Erro ao instalar {tool_name}: {str(e)}")
 
 def main():
-    # Solicite o nome do domínio ao usuário
-    global domain
-    domain = input("Digite o nome do domínio: ")
 
     # Instale as ferramentas que não estão instaladas ou que estão desatualizadas
     for tool_info in tools_to_install:
         install_tool(tool_info)
 
+    # Solicite o nome do domínio ao usuário
+    global domain
+    domain = input("Digite o nome do domínio: ")
+  
     # Execute o comando desejado com o nome do domínio fornecido pelo usuário
     try:
         subprocess.run(
