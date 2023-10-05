@@ -7,8 +7,10 @@ print("""
   █   ▀███▀   ▀███▀        █  █ █            ▀███▀     █ █  █ █ 
  ▀                         █   ██                     █  █   ██ 
                                                      ▀
-""")
+
                                             By D4n0PtU5
+""")
+
 
 import os
 import subprocess
