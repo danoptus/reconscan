@@ -15,9 +15,6 @@ print("""
 import os
 import subprocess
 
-# Solicite o nome do domínio ao usuário
-domain = input("Digite o nome do domínio: ")
-
 # Lista de ferramentas a serem instaladas e seus comandos de verificação de versão
 tools_to_install = [
     {"name": "subfinder", "command": "subfinder -version"},
@@ -65,15 +62,16 @@ def install_tool(tool_info):
         except Exception as e:
             print(f"Erro ao instalar {tool_name}: {str(e)}")
 
-def main():
-    # Solicite o nome do domínio ao usuário
-    global domain
-    domain = input("Digite o nome do domínio: ")
 
     # Instale as ferramentas que não estão instaladas ou que estão desatualizadas
     for tool_info in tools_to_install:
         install_tool(tool_info)
 
+    def main():
+    # Solicite o nome do domínio ao usuário
+    global domain
+    domain = input("Digite o nome do domínio: ")
+  
     # Execute o comando desejado com o nome do domínio fornecido pelo usuário
     try:
         subprocess.run(
